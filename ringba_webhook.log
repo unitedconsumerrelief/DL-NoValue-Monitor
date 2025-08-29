@@ -1,0 +1,69 @@
+2025-08-07 15:23:52,257 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:5000
+2025-08-07 15:23:52,266 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.254.100:5000
+2025-08-07 15:23:52,266 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-07 15:30:24,025 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:5000
+2025-08-07 15:30:24,034 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.254.100:5000
+2025-08-07 15:30:24,034 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-07 15:30:37,254 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:5000
+2025-08-07 15:30:37,262 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.254.100:5000
+2025-08-07 15:30:37,262 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-07 17:04:53,452 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:5000
+2025-08-07 17:04:53,461 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.254.100:5000
+2025-08-07 17:04:53,461 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-07 17:06:43,193 - werkzeug - INFO - 127.0.0.1 - - [07/Aug/2025 17:06:43] "GET / HTTP/1.1" 200 -
+2025-08-07 17:06:45,228 - root - INFO - Received webhook: campaignName=Wrong Campaign, targetName=Wrong Target
+2025-08-07 17:06:45,228 - root - INFO - Webhook filtered out - doesn't match criteria
+2025-08-07 17:06:45,228 - werkzeug - INFO - 127.0.0.1 - - [07/Aug/2025 17:06:45] "POST /ringba-webhook HTTP/1.1" 200 -
+2025-08-07 17:06:47,270 - root - INFO - Received webhook: campaignName=SPANISH DEBT | 3.5 STANDARD | 01292025, targetName=-no value-
+2025-08-07 17:06:50,138 - root - INFO - Successfully appended row for caller TEST_CALLER_123
+2025-08-07 17:06:50,763 - root - INFO - Successfully sent Slack notification for caller TEST_CALLER_123
+2025-08-07 17:06:50,765 - root - INFO - Successfully processed call from TEST_CALLER_123
+2025-08-07 17:06:50,765 - werkzeug - INFO - 127.0.0.1 - - [07/Aug/2025 17:06:50] "POST /ringba-webhook HTTP/1.1" 200 -
+2025-08-07 17:33:25,839 - werkzeug - INFO - 192.168.254.100 - - [07/Aug/2025 17:33:25] "GET / HTTP/1.1" 200 -
+2025-08-07 17:33:33,734 - root - INFO - Received webhook: campaignName=SPANISH DEBT | 3.5 STANDARD | 01292025, targetName=-no value-
+2025-08-07 17:33:36,077 - root - INFO - Successfully appended row for caller TEST_NETWORK_123
+2025-08-07 17:33:36,677 - root - INFO - Successfully sent Slack notification for caller TEST_NETWORK_123
+2025-08-07 17:33:36,679 - root - INFO - Successfully processed call from TEST_NETWORK_123
+2025-08-07 17:33:36,679 - werkzeug - INFO - 192.168.254.100 - - [07/Aug/2025 17:33:36] "POST /ringba-webhook HTTP/1.1" 200 -
+2025-08-07 17:54:33,236 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:5000
+2025-08-07 17:54:33,246 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.254.100:5000
+2025-08-07 17:54:33,246 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-29 18:09:55,619 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:5000
+2025-08-29 18:09:55,632 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.122:5000
+2025-08-29 18:09:55,633 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-29 18:10:02,276 - werkzeug - INFO - 127.0.0.1 - - [29/Aug/2025 18:10:02] "GET / HTTP/1.1" 200 -
+2025-08-29 18:10:04,316 - root - INFO - Received webhook: campaignName=Wrong Campaign, targetName=Wrong Target
+2025-08-29 18:10:04,316 - root - INFO - Webhook filtered out - doesn't match criteria
+2025-08-29 18:10:04,316 - werkzeug - INFO - 127.0.0.1 - - [29/Aug/2025 18:10:04] "POST /ringba-webhook HTTP/1.1" 200 -
+2025-08-29 18:10:06,357 - root - INFO - Received webhook: campaignName=SPANISH DEBT | 3.5 STANDARD | 01292025, targetName=-no value-
+2025-08-29 18:10:09,783 - root - INFO - Created correct headers in Google Sheet
+2025-08-29 18:10:11,038 - root - INFO - Successfully appended row for caller TEST_CALLER_123
+2025-08-29 18:10:11,651 - root - ERROR - Error sending Slack notification: 404 Client Error: Not Found for url: https://hooks.slack.com/services/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
+2025-08-29 18:10:11,653 - root - WARNING - Failed to send Slack notification
+2025-08-29 18:10:11,653 - root - INFO - Successfully processed call from TEST_CALLER_123
+2025-08-29 18:10:11,654 - werkzeug - INFO - 127.0.0.1 - - [29/Aug/2025 18:10:11] "POST /ringba-webhook HTTP/1.1" 200 -
+2025-08-29 18:10:40,729 - werkzeug - INFO - 127.0.0.1 - - [29/Aug/2025 18:10:40] "GET / HTTP/1.1" 200 -
+2025-08-29 18:10:42,757 - root - INFO - Received webhook: campaignName=Wrong Campaign, targetName=Wrong Target
+2025-08-29 18:10:42,758 - root - INFO - Webhook filtered out - doesn't match criteria
+2025-08-29 18:10:42,758 - werkzeug - INFO - 127.0.0.1 - - [29/Aug/2025 18:10:42] "POST /ringba-webhook HTTP/1.1" 200 -
+2025-08-29 18:10:44,781 - root - INFO - Received webhook: campaignName=SPANISH DEBT | 1.0 STANDARD, targetName=-no value-
+2025-08-29 18:10:44,781 - root - INFO - Webhook filtered out - doesn't match criteria
+2025-08-29 18:10:44,782 - werkzeug - INFO - 127.0.0.1 - - [29/Aug/2025 18:10:44] "POST /ringba-webhook HTTP/1.1" 200 -

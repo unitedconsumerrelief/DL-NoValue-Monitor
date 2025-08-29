@@ -1,0 +1,27 @@
+2025-08-07 17:52:48,359 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:80
+2025-08-07 17:52:48,369 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.254.100:80
+2025-08-07 17:52:48,369 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-07 17:52:52,588 - werkzeug - INFO - 192.168.254.100 - - [07/Aug/2025 17:52:52] "GET / HTTP/1.1" 200 -
+2025-08-07 17:55:02,359 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:80
+2025-08-07 17:55:02,368 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.254.100:80
+2025-08-07 17:55:02,369 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-07 17:58:47,019 - root - INFO - Starting Ringba Webhook Handler on 0.0.0.0:80
+2025-08-07 17:58:47,029 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.254.100:80
+2025-08-07 17:58:47,029 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-07 18:05:20,314 - root - INFO - Received webhook: campaignName=None, targetName=None
+2025-08-07 18:05:20,315 - root - INFO - Webhook filtered out - doesn't match criteria
+2025-08-07 18:05:20,315 - werkzeug - INFO - 192.168.254.100 - - [07/Aug/2025 18:05:20] "POST /ringba-webhook HTTP/1.1" 200 -
+2025-08-07 18:08:42,252 - root - INFO - Received webhook: campaignName=SPANISH DEBT | 3.5 STANDARD | 01292025, targetName=-no value-
+2025-08-07 18:08:44,713 - root - INFO - Successfully appended row for caller TEST_POSTMAN_123
+2025-08-07 18:08:45,304 - root - INFO - Successfully sent Slack notification for caller TEST_POSTMAN_123
+2025-08-07 18:08:45,305 - root - INFO - Successfully processed call from TEST_POSTMAN_123
+2025-08-07 18:08:45,305 - werkzeug - INFO - 192.168.254.100 - - [07/Aug/2025 18:08:45] "POST /ringba-webhook HTTP/1.1" 200 -
