@@ -19,24 +19,25 @@ app = Flask(__name__)
 
 def passes_filter(data):
     """Check if the webhook data matches our filter criteria"""
-    campaign_name = data.get("campaignName", "")
+    campaign_id = data.get("campaignId", "")  # Ringba sends campaignId
+    expected_campaign_id = RINGBA_FILTERS["campaign_id"]
     target_name = data.get("targetName", "")
     
     # Log the actual values for debugging
-    logging.info(f"Filter check - Campaign: '{campaign_name}' vs '{RINGBA_FILTERS['campaign_name']}'")
-    logging.info(f"Filter check - Target: '{target_name}' vs '{RINGBA_FILTERS['target_name']}'")
+    logging.info(f"Filter check - Campaign ID: '{campaign_id}' vs '{expected_campaign_id}'")
+    logging.info(f"Filter check - Target: '{target_name}' (empty = No Value call)")
     
-    # Check if campaign matches exactly
-    campaign_matches = campaign_name == RINGBA_FILTERS["campaign_name"]
+    # Check if campaign ID matches exactly
+    campaign_matches = campaign_id == expected_campaign_id
     
-    # Check if target is empty/null (which indicates "No Value" calls)
-    target_matches = (target_name == RINGBA_FILTERS["target_name"] or 
-                     target_name == "" or 
-                     target_name is None)
+    # Check if target is empty/blank (which indicates "No Value" calls)
+    # We want calls where target is empty, not where it has a value
+    target_is_empty = (target_name == "" or target_name is None or target_name.strip() == "")
     
-    logging.info(f"Campaign match: {campaign_matches}, Target match: {target_matches}")
+    logging.info(f"Campaign ID match: {campaign_matches}, Target is empty: {target_is_empty}")
     
-    return campaign_matches and target_matches
+    # Return true if: campaign ID matches AND target is empty (No Value call)
+    return campaign_matches and target_is_empty
 
 @app.route("/", methods=["GET"])
 def health_check():

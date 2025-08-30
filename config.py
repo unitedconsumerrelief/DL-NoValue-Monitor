@@ -5,8 +5,8 @@ load_dotenv()
 
 # Ringba webhook filters
 RINGBA_FILTERS = {
-    "campaign_name": os.getenv("RINGBA_CAMPAIGN_NAME", "SPANISH DEBT | 1.0 STANDARD"),
-    "target_name": os.getenv("RINGBA_TARGET_NAME", "-no value-")
+    "campaign_id": os.getenv("RINGBA_CAMPAIGN_ID", "CAe715b3cb230a4e3cb6735dca86c21d7b"),
+    "target_name": os.getenv("RINGBA_TARGET_NAME", "")  # Empty target = No Value call
 }
 
 # Google Sheets configuration
