@@ -19,7 +19,7 @@ def test_empty_target_webhook():
         "campaignName": TEST_CAMPAIGN_NAME,
         "targetName": TEST_TARGET_NAME,  # Empty string
         "callerId": "REAL_CALLER_123",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now().isoformat(),
         "duration": 0,
         "status": "completed"
     }
@@ -54,7 +54,7 @@ def test_null_target_webhook():
         "campaignName": TEST_CAMPAIGN_NAME,
         "targetName": None,  # Null target name
         "callerId": "REAL_CALLER_456",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now().isoformat(),
         "duration": 0,
         "status": "completed"
     }

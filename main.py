@@ -62,7 +62,10 @@ def ringba_webhook():
 
         # Extract call data
         caller_id = data.get("callerId", "Unknown")
-        time_of_call = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+        # Use EST timezone instead of UTC
+        from datetime import timezone, timedelta
+        est_tz = timezone(timedelta(hours=-5))  # EST is UTC-5
+        time_of_call = datetime.now(est_tz).strftime("%Y-%m-%d %H:%M:%S EST")
 
         # Append to Google Sheet
         sheet_success = append_row_to_sheet(time_of_call, caller_id)
