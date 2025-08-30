@@ -22,10 +22,21 @@ def passes_filter(data):
     campaign_name = data.get("campaignName", "")
     target_name = data.get("targetName", "")
     
-    return (
-        campaign_name == RINGBA_FILTERS["campaign_name"] and
-        target_name == RINGBA_FILTERS["target_name"]
-    )
+    # Log the actual values for debugging
+    logging.info(f"Filter check - Campaign: '{campaign_name}' vs '{RINGBA_FILTERS['campaign_name']}'")
+    logging.info(f"Filter check - Target: '{target_name}' vs '{RINGBA_FILTERS['target_name']}'")
+    
+    # Check if campaign matches exactly
+    campaign_matches = campaign_name == RINGBA_FILTERS["campaign_name"]
+    
+    # Check if target is empty/null (which indicates "No Value" calls)
+    target_matches = (target_name == RINGBA_FILTERS["target_name"] or 
+                     target_name == "" or 
+                     target_name is None)
+    
+    logging.info(f"Campaign match: {campaign_matches}, Target match: {target_matches}")
+    
+    return campaign_matches and target_matches
 
 @app.route("/", methods=["GET"])
 def health_check():
