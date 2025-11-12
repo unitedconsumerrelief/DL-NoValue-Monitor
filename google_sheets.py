@@ -8,7 +8,7 @@ import logging
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-def append_row_to_sheet(time_of_call, caller_id):
+def append_row_to_sheet(time_of_call, caller_id, call_type):
     try:
         # Try to get credentials from environment variable first (for deployment)
         creds_json = os.getenv('GOOGLE_CREDS_JSON')
@@ -21,8 +21,8 @@ def append_row_to_sheet(time_of_call, caller_id):
         client = gspread.authorize(creds)
         sheet = client.open_by_key(GOOGLE_SHEET_ID).worksheet(GOOGLE_SHEET_TAB)
         
-        # Define correct headers
-        correct_headers = ["Time of call", "CallerID", "Agent Name", "Status", "Notes"]
+        # Define correct headers with Call Type column
+        correct_headers = ["Time of call", "CallerID", "Call Type", "Agent Name", "Status", "Notes"]
         
         # Check if headers exist and are correct
         try:
@@ -38,10 +38,10 @@ def append_row_to_sheet(time_of_call, caller_id):
             sheet.append_row(correct_headers)
             logging.info("Created correct headers in Google Sheet (after error)")
         
-        new_row = [time_of_call, caller_id, "", "", ""]  # Manual fields left empty
+        new_row = [time_of_call, caller_id, call_type, "", "", ""]  # Manual fields left empty
         sheet.append_row(new_row, value_input_option="USER_ENTERED")
         
-        logging.info(f"Successfully appended row for caller {caller_id}")
+        logging.info(f"Successfully appended row for caller {caller_id} with call type {call_type}")
         return True
         
     except Exception as e:
