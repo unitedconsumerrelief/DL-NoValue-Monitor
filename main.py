@@ -20,7 +20,8 @@ app = Flask(__name__)
 def get_call_type(data):
     """Determine the call type based on filter criteria"""
     target_name = data.get("targetName", "")
-    duration_raw = data.get("duration")
+    # Ringba sends callLengthFromConnect, fallback to duration for backward compatibility
+    duration_raw = data.get("callLengthFromConnect") or data.get("duration")
     
     # Handle duration - could be None, string "None", number, time string (HH:MM:SS), or missing
     if duration_raw is None or duration_raw == "None" or duration_raw == "":
@@ -71,7 +72,8 @@ def get_call_type(data):
 def passes_filter(data):
     """Check if the webhook data matches our filter criteria"""
     target_name = data.get("targetName", "")
-    duration_raw = data.get("duration")
+    # Ringba sends callLengthFromConnect, fallback to duration for backward compatibility
+    duration_raw = data.get("callLengthFromConnect") or data.get("duration")
     
     # Handle duration - could be None, string "None", number, time string (HH:MM:SS), or missing
     if duration_raw is None or duration_raw == "None" or duration_raw == "":
@@ -140,7 +142,7 @@ def ringba_webhook():
             return jsonify({"error": "No JSON received"}), 400
 
         # Log incoming webhook for debugging
-        logging.info(f"Received webhook: campaignName={data.get('campaignName')}, targetName={data.get('targetName')}, duration={data.get('duration')}s")
+        logging.info(f"Received webhook: campaignName={data.get('campaignName')}, targetName={data.get('targetName')}, callLengthFromConnect={data.get('callLengthFromConnect')}, duration={data.get('duration')}")
 
         if not passes_filter(data):
             logging.info("Webhook filtered out - doesn't match criteria")
