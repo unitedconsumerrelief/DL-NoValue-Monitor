@@ -24,19 +24,26 @@ def append_row_to_sheet(time_of_call, caller_id, call_type):
         # Define correct headers with Call Type column
         correct_headers = ["Time of call", "CallerID", "Call Type", "Agent Name", "Status", "Notes"]
         
-        # Check if headers exist and are correct
+        # Check if headers exist and are correct (without clearing protected cells)
         try:
             existing_headers = sheet.row_values(1)
-            if not existing_headers or existing_headers != correct_headers:
-                # Clear the sheet and add correct headers
-                sheet.clear()
-                sheet.append_row(correct_headers)
-                logging.info("Created correct headers in Google Sheet")
+            if not existing_headers:
+                # No headers exist, try to add them (only if row 1 is empty)
+                try:
+                    sheet.insert_row(correct_headers, 1)
+                    logging.info("Created headers in Google Sheet")
+                except Exception as header_error:
+                    # If we can't insert headers (protected), try to append and log warning
+                    logging.warning(f"Could not insert headers (may be protected): {str(header_error)}")
+                    # Continue - we'll try to append data anyway
+            elif existing_headers != correct_headers:
+                # Headers exist but don't match - log warning but don't try to modify protected cells
+                logging.warning(f"Headers don't match expected format. Expected: {correct_headers}, Found: {existing_headers}")
+                logging.warning("Skipping header update to avoid protected cell errors. Please manually update headers if needed.")
         except Exception as e:
-            # If there's an error reading headers, clear and create new ones
-            sheet.clear()
-            sheet.append_row(correct_headers)
-            logging.info("Created correct headers in Google Sheet (after error)")
+            # If there's an error reading headers, log but continue
+            logging.warning(f"Could not read headers (may be protected): {str(e)}")
+            # Continue - we'll try to append data anyway
         
         new_row = [time_of_call, caller_id, call_type, "", "", ""]  # Manual fields left empty
         sheet.append_row(new_row, value_input_option="USER_ENTERED")

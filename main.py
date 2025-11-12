@@ -20,13 +20,27 @@ app = Flask(__name__)
 def get_call_type(data):
     """Determine the call type based on filter criteria"""
     target_name = data.get("targetName", "")
-    duration = data.get("duration", 0)
+    duration_raw = data.get("duration")
+    
+    # Handle duration - could be None, string "None", number, or missing
+    # Only treat as valid if it's an actual number (not None/missing)
+    if duration_raw is None or duration_raw == "None" or duration_raw == "":
+        duration = None
+    else:
+        try:
+            duration = float(duration_raw)
+            # Only consider valid if it's a positive number
+            if duration < 0:
+                duration = None
+        except (ValueError, TypeError):
+            duration = None
     
     # Check if target is empty/blank (which indicates "No Value" calls)
     target_is_empty = (target_name == "" or target_name is None or target_name.strip() == "")
     
-    # Check if duration is 10 seconds or under
-    duration_short = duration is not None and duration <= 10
+    # Check if duration is 10 seconds or under (must be a valid positive number)
+    # Don't treat missing/None duration as 0 - only catch if duration is explicitly provided
+    duration_short = duration is not None and isinstance(duration, (int, float)) and 0 < duration <= 10
     
     # Determine call type:
     # - If no target name → "No Value" (regardless of duration)
@@ -41,7 +55,20 @@ def get_call_type(data):
 def passes_filter(data):
     """Check if the webhook data matches our filter criteria"""
     target_name = data.get("targetName", "")
-    duration = data.get("duration", 0)
+    duration_raw = data.get("duration")
+    
+    # Handle duration - could be None, string "None", number, or missing
+    # Only treat as valid if it's an actual number (not None/missing)
+    if duration_raw is None or duration_raw == "None" or duration_raw == "":
+        duration = None
+    else:
+        try:
+            duration = float(duration_raw)
+            # Only consider valid if it's a positive number
+            if duration < 0:
+                duration = None
+        except (ValueError, TypeError):
+            duration = None
     
     # Log the target value and duration for debugging
     logging.info(f"Filter check - Target: '{target_name}' (empty = No Value call), Duration: {duration}s")
@@ -49,8 +76,9 @@ def passes_filter(data):
     # Check if target is empty/blank (which indicates "No Value" calls)
     target_is_empty = (target_name == "" or target_name is None or target_name.strip() == "")
     
-    # Check if duration is 10 seconds or under
-    duration_short = duration is not None and duration <= 10
+    # Check if duration is 10 seconds or under (must be a valid positive number)
+    # Don't treat missing/None duration as 0 - only catch if duration is explicitly provided
+    duration_short = duration is not None and isinstance(duration, (int, float)) and 0 < duration <= 10
     
     logging.info(f"Target is empty: {target_is_empty}, Duration <= 10s: {duration_short}")
     
