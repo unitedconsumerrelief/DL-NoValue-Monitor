@@ -21,8 +21,8 @@ def append_row_to_sheet(time_of_call, caller_id, call_type):
         client = gspread.authorize(creds)
         sheet = client.open_by_key(GOOGLE_SHEET_ID).worksheet(GOOGLE_SHEET_TAB)
         
-        # Define correct headers with Call Type column
-        correct_headers = ["Time of call", "CallerID", "Call Type", "Agent Name", "Status", "Notes"]
+        # Define correct headers with Call Type column after "Time of call"
+        correct_headers = ["Time of call", "Call Type", "CallerID", "Agent Name", "Status", "Notes"]
         
         # Check if headers exist and are correct (without clearing protected cells)
         try:
@@ -45,7 +45,7 @@ def append_row_to_sheet(time_of_call, caller_id, call_type):
             logging.warning(f"Could not read headers (may be protected): {str(e)}")
             # Continue - we'll try to append data anyway
         
-        new_row = [time_of_call, caller_id, call_type, "", "", ""]  # Manual fields left empty
+        new_row = [time_of_call, call_type, caller_id, "", "", ""]  # Manual fields left empty (Agent Name, Status, Notes)
         sheet.append_row(new_row, value_input_option="USER_ENTERED")
         
         logging.info(f"Successfully appended row for caller {caller_id} with call type {call_type}")
