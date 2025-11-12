@@ -45,10 +45,31 @@ def append_row_to_sheet(time_of_call, caller_id, call_type):
             logging.warning(f"Could not read headers (may be protected): {str(e)}")
             # Continue - we'll try to append data anyway
         
-        new_row = [time_of_call, call_type, caller_id, "", "", ""]  # Manual fields left empty (Agent Name, Status, Notes)
-        sheet.append_row(new_row, value_input_option="USER_ENTERED")
+        # Find the next empty row (after headers)
+        try:
+            # Get all values to find the last row
+            all_values = sheet.get_all_values()
+            next_row = len(all_values) + 1
+            
+            # If row 1 is empty or doesn't have our headers, use row 2
+            if next_row == 1:
+                next_row = 2
+        except:
+            # Fallback: just append (will find next row automatically)
+            next_row = None
         
-        logging.info(f"Successfully appended row for caller {caller_id} with call type {call_type}")
+        # Prepare the row data in correct order: [Time of call, Call Type, CallerID, Agent Name, Status, Notes]
+        new_row = [time_of_call, call_type, caller_id, "", "", ""]  # Manual fields left empty (Agent Name, Status, Notes)
+        
+        if next_row:
+            # Explicitly update specific cells to ensure correct column alignment
+            # Update cells A, B, C (Time, Call Type, CallerID)
+            sheet.update(f'A{next_row}:C{next_row}', [[time_of_call, call_type, caller_id]], value_input_option="USER_ENTERED")
+            logging.info(f"Successfully added row {next_row} for caller {caller_id} with call type {call_type}")
+        else:
+            # Fallback to append_row
+            sheet.append_row(new_row, value_input_option="USER_ENTERED")
+            logging.info(f"Successfully appended row for caller {caller_id} with call type {call_type}")
         return True
         
     except Exception as e:
