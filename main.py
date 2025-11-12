@@ -22,18 +22,34 @@ def get_call_type(data):
     target_name = data.get("targetName", "")
     duration_raw = data.get("duration")
     
-    # Handle duration - could be None, string "None", number, or missing
-    # Only treat as valid if it's an actual number (not None/missing)
+    # Handle duration - could be None, string "None", number, time string (HH:MM:SS), or missing
     if duration_raw is None or duration_raw == "None" or duration_raw == "":
         duration = None
     else:
         try:
+            # First try to parse as a number (seconds)
             duration = float(duration_raw)
             # Only consider valid if it's a positive number
             if duration < 0:
                 duration = None
         except (ValueError, TypeError):
-            duration = None
+            # If not a number, try to parse as time string (HH:MM:SS or MM:SS)
+            try:
+                if isinstance(duration_raw, str) and ':' in duration_raw:
+                    # Parse time format like "00:00:10" or "00:10"
+                    time_parts = duration_raw.strip().split(':')
+                    if len(time_parts) == 3:  # HH:MM:SS
+                        hours, minutes, seconds = map(float, time_parts)
+                        duration = hours * 3600 + minutes * 60 + seconds
+                    elif len(time_parts) == 2:  # MM:SS
+                        minutes, seconds = map(float, time_parts)
+                        duration = minutes * 60 + seconds
+                    else:
+                        duration = None
+                else:
+                    duration = None
+            except (ValueError, TypeError):
+                duration = None
     
     # Check if target is empty/blank (which indicates "No Value" calls)
     target_is_empty = (target_name == "" or target_name is None or target_name.strip() == "")
@@ -57,21 +73,38 @@ def passes_filter(data):
     target_name = data.get("targetName", "")
     duration_raw = data.get("duration")
     
-    # Handle duration - could be None, string "None", number, or missing
-    # Only treat as valid if it's an actual number (not None/missing)
+    # Handle duration - could be None, string "None", number, time string (HH:MM:SS), or missing
     if duration_raw is None or duration_raw == "None" or duration_raw == "":
         duration = None
     else:
         try:
+            # First try to parse as a number (seconds)
             duration = float(duration_raw)
             # Only consider valid if it's a positive number
             if duration < 0:
                 duration = None
         except (ValueError, TypeError):
-            duration = None
+            # If not a number, try to parse as time string (HH:MM:SS or MM:SS)
+            try:
+                if isinstance(duration_raw, str) and ':' in duration_raw:
+                    # Parse time format like "00:00:10" or "00:10"
+                    time_parts = duration_raw.strip().split(':')
+                    if len(time_parts) == 3:  # HH:MM:SS
+                        hours, minutes, seconds = map(float, time_parts)
+                        duration = hours * 3600 + minutes * 60 + seconds
+                    elif len(time_parts) == 2:  # MM:SS
+                        minutes, seconds = map(float, time_parts)
+                        duration = minutes * 60 + seconds
+                    else:
+                        duration = None
+                else:
+                    duration = None
+            except (ValueError, TypeError):
+                duration = None
     
     # Log the target value and duration for debugging
-    logging.info(f"Filter check - Target: '{target_name}' (empty = No Value call), Duration: {duration}s")
+    duration_display = f"{duration}s" if duration is not None else "None/invalid"
+    logging.info(f"Filter check - Target: '{target_name}' (empty = No Value call), Duration (raw): {duration_raw}, Duration (parsed): {duration_display}")
     
     # Check if target is empty/blank (which indicates "No Value" calls)
     target_is_empty = (target_name == "" or target_name is None or target_name.strip() == "")
@@ -80,7 +113,7 @@ def passes_filter(data):
     # Don't treat missing/None duration as 0 - only catch if duration is explicitly provided
     duration_short = duration is not None and isinstance(duration, (int, float)) and 0 < duration <= 10
     
-    logging.info(f"Target is empty: {target_is_empty}, Duration <= 10s: {duration_short}")
+    logging.info(f"Target is empty: {target_is_empty}, Duration <= 10s: {duration_short} (duration must be > 0 and <= 10)")
     
     # Return true if:
     # - Target is empty (No Value call) OR
